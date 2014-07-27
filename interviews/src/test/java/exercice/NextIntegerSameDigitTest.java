@@ -11,7 +11,7 @@ public class NextIntegerSameDigitTest {
 	public void test0() {
 		int num = 217650;
 		int expected = 250167;
-		int actual = NextIntegerSameDigit.ceil(num);
+		int actual = NextIntegerSameDigit.f(num);
 
 		assertEquals(actual, expected, actual);
 	}
@@ -20,7 +20,7 @@ public class NextIntegerSameDigitTest {
 	public void test1() {
 		int num = 3276510;
 		int expected = 3501267;
-		int actual = NextIntegerSameDigit.ceil(num);
+		int actual = NextIntegerSameDigit.f(num);
 
 		assertEquals(actual, expected, actual);
 	}
@@ -29,7 +29,7 @@ public class NextIntegerSameDigitTest {
 	public void test2() {
 		int num = 12301;
 		int expected = 12310;
-		int actual = NextIntegerSameDigit.ceil(num);
+		int actual = NextIntegerSameDigit.f(num);
 
 		assertEquals(actual, expected, actual);
 	}
