@@ -45,6 +45,9 @@ public class UglyNumbers {
 		}
 	}
 
+	/**
+	 * O(1) / O(1)
+	 */
 	private static boolean isUgly(int n) {
 		if (memo.containsKey(n)) {
 			return memo.get(n);
@@ -63,10 +66,12 @@ public class UglyNumbers {
 	}
 
 	/**
-	 * Returns the first divisor > 1.
+	 * Returns the first divisor > 1 and <= 7 (the last ugly prime number).
+	 * 
+	 * O(1) / O(1)
 	 */
 	private static int getFirstDivisor(int n) {
-		for (int i = 2; i <= Math.sqrt(n); i++) {
+		for (int i = 2; i <= 7; i++) {
 			if (n % i == 0) {
 				return i;
 			}
