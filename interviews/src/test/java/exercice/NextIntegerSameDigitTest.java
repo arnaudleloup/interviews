@@ -33,5 +33,4 @@ public class NextIntegerSameDigitTest {
 
 		assertEquals(actual, expected, actual);
 	}
-
 }
