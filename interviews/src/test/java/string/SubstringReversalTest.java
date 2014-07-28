@@ -47,4 +47,14 @@ public class SubstringReversalTest {
 		int[] actual = SubstringReversal.solve(S);
 		assertTrue(Arrays.toString(actual), Arrays.equals(expected, actual));
 	}
+
+	@Test
+	public void test5() {
+		String S = "abcdcd";
+		int[] expected = {3, 4};
+		int[] actual = SubstringReversal.solve(S);
+		assertTrue(Arrays.toString(actual), Arrays.equals(expected, actual));
+	}
+
+
 }

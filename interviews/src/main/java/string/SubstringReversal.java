@@ -42,14 +42,17 @@ public class SubstringReversal {
 	private static int findX(String S) {
 		int x = 0;
 		int i = 1;
+		boolean hasBack = false;
 
-		//
 		while (x != -1 && i < S.length()) { // O(n) time, O(1) space
 			char c = S.charAt(i);
 
 			if (c >= S.charAt(x)) {
-				x++;
+				if (!hasBack) {
+					x++;
+				}
 			} else {
+				hasBack = true;
 				while (x != -1 && c < S.charAt(x)) { // get back!
 					x--;
 				}
