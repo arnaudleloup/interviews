@@ -57,7 +57,7 @@ public class UglyNumbers {
 			return memo.get(div1) && memo.get(div2);
 		}
 
-		// If memo does not contain any of the divisors of n
+		// If memo does not contain one of the divisors of n
 		// then n is prime.
 		return goodPrimes.contains(n);
 	}
