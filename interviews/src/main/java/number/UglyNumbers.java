@@ -6,18 +6,28 @@ import java.util.Map;
 import java.util.Set;
 
 public class UglyNumbers {
-	private static final Map<Integer, Boolean> memo = new HashMap<>();
-	private static final Set<Integer> goodPrimes = new HashSet<>();
 
 	/**
 	 * Numbers whose only prime factors are 2, 3, 5 or 7 are called ugly numbers.
 	 * Generate the first k ugly numbers (in increasing order).
 	 * 1 is considered the first.
 	 * So the sequence starts with 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14...
-	 * 
+	 */
+	public static int[] f(int k) {
+		int[] ugly = new int[k];
+
+
+
+		return ugly;
+	}
+
+	private static final Map<Integer, Boolean> memo = new HashMap<>();
+	private static final Set<Integer> goodPrimes = new HashSet<>();
+
+	/**
 	 * Solved by DP
 	 */
-	public static int[] uglyNumbers(int k) {
+	public static int[] f2(int k) {
 		goodPrimes.add(2);
 		goodPrimes.add(3);
 		goodPrimes.add(5);
