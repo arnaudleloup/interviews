@@ -1,8 +1,11 @@
-package number;
+package number.uglynumber;
 
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+
+import number.uglynumber.UglyNumbers;
+import number.uglynumber.UglyNumbers2;
 
 import org.junit.Test;
 
@@ -28,8 +31,8 @@ public class UglyNumbersTest {
 	@Test
 	public void test2() {
 
-		int k = 10000;
-		int[] actual = UglyNumbers2.f(k);
+		int k = 1000;
+		int[] actual = UglyNumbers.f(k);
 		System.out.println(actual[k - 1]);
 	}
 

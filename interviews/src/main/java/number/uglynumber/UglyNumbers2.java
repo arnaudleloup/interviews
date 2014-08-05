@@ -1,4 +1,4 @@
-package number;
+package number.uglynumber;
 
 import java.util.LinkedList;
 import java.util.List;
