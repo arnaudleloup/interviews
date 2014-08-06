@@ -1,6 +1,7 @@
 package linkedlist;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import linkedlist.node.Node;
 
 import org.junit.Test;
@@ -18,5 +19,6 @@ public class MiddleNodeDeletionTest {
 		assertEquals(0, (int) first.item);
 		assertEquals(2, (int) first.next.item);
 		assertEquals(3, (int) first.next.next.item);
+		assertNull(first.next.next.next);
 	}
 }

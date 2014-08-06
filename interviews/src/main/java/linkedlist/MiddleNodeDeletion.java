@@ -18,10 +18,13 @@ public class MiddleNodeDeletion {
 		Node<E> current = node;
 		Node<E> next = node.next;
 
-		while(next != null) {
+		while(next.next != null) {
 			current.item = next.item;
 			current = next;
 			next = next.next;
 		}
+
+		current.item = next.item;
+		current.next = null;
 	}
 }
