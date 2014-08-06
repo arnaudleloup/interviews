@@ -24,7 +24,7 @@ public class Node<E> {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Node other = (Node) obj;
+		Node<?> other = (Node<?>) obj;
 		if (item == null) {
 			if (other.item != null) {
 				return false;
