@@ -1,100 +1,85 @@
 package number.uglynumber;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import sort.MinHeap;
+
+/**
+ * Numbers whose only prime factors are 2, 3, 5 or 7 are called ugly numbers.
+ * Generate the first k ugly numbers (in increasing order).
+ * 1 is considered the first.
+ * So the sequence starts with 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14...
+ * 
+ * O(klog(k)) / O(k)
+ */
 public class UglyNumbers2 {
 
-	/**
-	 * Numbers whose only prime factors are 2, 3, 5 or 7 are called ugly numbers.
-	 * Generate the first k ugly numbers (in increasing order).
-	 * 1 is considered the first.
-	 * So the sequence starts with 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14...
-	 */
-	public static int[] f(int k) {
-		int[] t = new int[k];
-		t[0] = 1;
+	public static long[] f(int k) {
+		long[] t = new long[k];
+		int index = 0;
+		Set<Long> done = new HashSet<>(); // O(k) space
+		MinHeap<Tuple> heap = new MinHeap<>(); // O(k) space
+		heap.insert(new Tuple(0, 0, 0, 0));
 
-		LinkedList<Integer> two = new LinkedList<>();
-		two.add(2);
+		while (index < k) { // O(klog(k)) time
+			Tuple tuple = heap.delMin(); // O(1)
 
-		LinkedList<Integer> three = new LinkedList<>();
-		three.add(3);
+			Tuple t1 = new Tuple(tuple.i + 1, tuple.j, tuple.k, tuple.l);
+			Tuple t2 = new Tuple(tuple.i, tuple.j + 1, tuple.k, tuple.l);
+			Tuple t3 = new Tuple(tuple.i, tuple.j, tuple.k + 1, tuple.l);
+			Tuple t4 = new Tuple(tuple.i, tuple.j, tuple.k, tuple.l + 1);
 
-		LinkedList<Integer> five = new LinkedList<>();
-		five.add(5);
-
-
-		LinkedList<Integer> seven = new LinkedList<>();
-		seven.add(7);
-
-		int i = 1;
-		while (i < k) {
-			int min = 0;
-
-			if(two.getFirst() < three.getFirst()
-					&& two.getFirst() < five.getFirst()
-					&& two.getFirst() < seven.getFirst()) {
-				min = two.poll();
-				add(two, min * 2);
-				add(two, min * 3);
-				add(two, min * 5);
-				add(two, min * 7);
-			} else if(three.getFirst() < five.getFirst() && three.getFirst() <seven.getFirst()) {
-				min = three.poll();
-				add(three, min * 3);
-				add(three, min * 5);
-				add(three, min * 7);
-			} else if(five.getFirst() < seven.getFirst()) {
-				min = five.poll();
-				add(five, min * 5);
-				add(five, min * 7);
-			} else {
-				min = seven.poll();
-				seven.add(min * 7);
+			if (!done.contains(t1.v)) {
+				heap.insert(t1); // O(log(n)) time
+				done.add(t1.v);
 			}
 
-			t[i] = min;
-			i++;
+			if (!done.contains(t2.v)) {
+				heap.insert(t2);
+				done.add(t2.v);
+			}
+
+			if (!done.contains(t3.v)) {
+				heap.insert(t3);
+				done.add(t3.v);
+			}
+
+			if (!done.contains(t4.v)) {
+				heap.insert(t4);
+				done.add(t4.v);
+			}
+
+			t[index++] = tuple.v;
 		}
 
 		return t;
 	}
 
-	/**
-	 * Add an element to the linked list and maintains the order by binary search.
-	 * 
-	 * O(log(n)) time, O(1) space
-	 */
-	private static void add(LinkedList<Integer> lnk, int e) {
-		int index = BS(lnk, 0, lnk.size(), e);
-		if (index != -1) {
-			lnk.add(index, e);
-		}
-	}
+	private static class Tuple implements Comparable<Tuple> {
+		long v;
+		int i;
+		int j;
+		int k;
+		int l;
 
-	private static int BS(List<Integer> list, int min, int max, int e) {
-		if (min == max) {
-			return min;
+		public Tuple(int i, int j, int k, int l) {
+			this.v = (long) (Math.pow(2, i) * Math.pow(3, j) * Math.pow(5,  k) * Math.pow(7, l));
+			this.i = i;
+			this.j = j;
+			this.k = k;
+			this.l = l;
 		}
 
-		int m = (min + max) / 2;
-
-		if (list.get(m) == e) {
-			return -1;
-		}
-		if (list.get(m) < e) {
-			if (m == list.size() - 1 || list.get(m + 1) > e) {
-				return m + 1;
-			}
-
-			return BS(list, m, max, e);
+		@Override
+		public int compareTo(Tuple o) {
+			return Long.valueOf(v).compareTo(Long.valueOf(o.v));
 		}
 
-		if (m == 0 || list.get(m - 1) < e) {
-			return m;
+		@Override
+		public String toString() {
+			return "Tuple [v=" + v + ", i=" + i + ", j=" + j + ", k=" + k
+					+ ", l=" + l + "]";
 		}
-
-		return BS(list, min, m, e);
 	}
 }

@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Arrays;
+
 public abstract class AbstractHeap<E extends Comparable<E>> {
 
 	private final static int INITIAL_CAPACITY = 16;
@@ -45,7 +47,7 @@ public abstract class AbstractHeap<E extends Comparable<E>> {
 		return e;
 	}
 
-	public E getMax() {
+	public E getFirst() {
 		return t[0];
 	}
 
@@ -118,4 +120,11 @@ public abstract class AbstractHeap<E extends Comparable<E>> {
 		t[i] = t[j];
 		t[j] = temp;
 	}
+
+	@Override
+	public String toString() {
+		return "AbstractHeap [t=" + Arrays.toString(t) + ", N=" + N + "]";
+	}
+
+
 }

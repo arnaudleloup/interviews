@@ -13,21 +13,13 @@ public class UglyNumbers {
 	 * 1 is considered the first.
 	 * So the sequence starts with 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14...
 	 */
-	public static int[] f(int k) {
-		int[] ugly = new int[k];
-
-
-
-		return ugly;
-	}
-
 	private static final Map<Integer, Boolean> memo = new HashMap<>();
 	private static final Set<Integer> goodPrimes = new HashSet<>();
 
 	/**
 	 * Solved by DP
 	 */
-	public static int[] f2(int k) {
+	public static int[] f(int k) {
 		goodPrimes.add(2);
 		goodPrimes.add(3);
 		goodPrimes.add(5);
