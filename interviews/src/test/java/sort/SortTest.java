@@ -63,54 +63,6 @@ public class SortTest {
 	}
 
 	@Test
-	public void testMaxHeapify() {
-		//		int[] table = {16, 4, 10, 14, 7, 9, 3, 2, 8, 1};
-		int[] table = {9, 16};
-
-		Heap.maxHeapify(table, 0);
-
-		for (int i : table) {
-			System.out.print(i + " ");
-		}
-	}
-
-	@Test
-	public void testBuildMaxHeap() {
-		//		int[] table = {16, 4, 10, 14, 7, 9, 3, 2, 8, 1};
-		int[] table = getUnsortedArray(7);
-
-		for (int i : table) {
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		Heap.buildMaxHeap(table);
-
-		for (int i : table) {
-			System.out.print(i + " ");
-		}
-	}
-
-	@Test
-	public void testHeapSort() {
-		int[] table = getUnsortedArray(100000);
-
-		//		for (int i : table) {
-		//			System.out.print(i + " ");
-		//		}
-		//		System.out.println();
-		int[] sorted = Heap.heapSort(table);
-		//		for (int i : sorted) {
-		//			System.out.print(i + " ");
-		//		}
-
-		for (int i = 0; i < sorted.length; i++) {
-			if (i != sorted.length - 1) {
-				assertTrue(sorted[i] >= sorted[i + 1]);
-			}
-		}
-	}
-
-	@Test
 	public void testCountingSort() {
 		int[] table = getUnsortedArray(1000);
 
