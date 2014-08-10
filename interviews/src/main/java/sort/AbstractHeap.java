@@ -1,12 +1,11 @@
 package sort;
 
-public class Heap<E extends Comparable<E>> {
+public abstract class AbstractHeap<E extends Comparable<E>> {
 
 	private final static int INITIAL_CAPACITY = 16;
 	@SuppressWarnings("unchecked")
 	private E[] t = (E[]) new Comparable[INITIAL_CAPACITY];
 	private int N = 0;
-	private E min;
 
 	/**
 	 * O(nlog(n)) / O(1)
@@ -27,18 +26,12 @@ public class Heap<E extends Comparable<E>> {
 		t[N] = e;
 		swim(N);
 
-		if (isEmpty()) {
-			min = e;
-		} else if (e.compareTo(min) < 0) {
-			min = e;
-		}
-
 		if (++N	== t.length) {
 			resize(2 * t.length);
 		}
 	}
 
-	public E delMax() {
+	protected E delFirst() {
 		E e = t[0];
 		swap(0, N - 1);
 		t[--N] = null;
@@ -54,10 +47,6 @@ public class Heap<E extends Comparable<E>> {
 
 	public E getMax() {
 		return t[0];
-	}
-
-	public E getMin() {
-		return isEmpty() ? null : min;
 	}
 
 	public int size() {
@@ -118,9 +107,7 @@ public class Heap<E extends Comparable<E>> {
 		return less(t, i, j);
 	}
 
-	private boolean less(E[] t, int i, int j) {
-		return t[i].compareTo(t[j]) < 0;
-	}
+	protected abstract boolean less(E[] t, int i, int j);
 
 	private void swap(int i, int j) {
 		swap(t, i, j);
