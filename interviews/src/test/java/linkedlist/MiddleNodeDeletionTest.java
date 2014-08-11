@@ -2,9 +2,10 @@ package linkedlist;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import linkedlist.node.Node;
 
 import org.junit.Test;
+
+import datastructure.linkedlist.Node;
 
 public class MiddleNodeDeletionTest {
 

@@ -1,4 +1,4 @@
-package sort;
+package datastructure.heap;
 
 public class MaxHeap<E extends Comparable<E>> extends AbstractHeap<E> {
 

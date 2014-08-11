@@ -1,4 +1,4 @@
-package sort;
+package datastructure.heap;
 
 public class MinHeap<E extends Comparable<E>> extends AbstractHeap<E> {
 

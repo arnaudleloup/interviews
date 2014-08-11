@@ -2,7 +2,8 @@ package number;
 
 import java.util.Arrays;
 
-import sort.MinHeap;
+import datastructure.heap.MinHeap;
+
 
 /**
  * Write a program that prints out all integers of the form a^3 + b^3 where a and b are integers

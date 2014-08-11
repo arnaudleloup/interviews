@@ -1,6 +1,6 @@
 package linkedlist;
 
-import linkedlist.node.Node;
+import datastructure.linkedlist.Node;
 
 public class LinkedListPartition {
 

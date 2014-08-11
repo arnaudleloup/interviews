@@ -3,7 +3,8 @@ package number.uglynumber;
 import java.util.HashSet;
 import java.util.Set;
 
-import sort.MinHeap;
+import datastructure.heap.MinHeap;
+
 
 /**
  * Numbers whose only prime factors are 2, 3, 5 or 7 are called ugly numbers.

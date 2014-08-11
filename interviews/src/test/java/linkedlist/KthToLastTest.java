@@ -1,9 +1,10 @@
 package linkedlist;
 
 import static org.junit.Assert.assertEquals;
-import linkedlist.node.Node;
 
 import org.junit.Test;
+
+import datastructure.linkedlist.Node;
 
 public class KthToLastTest {
 

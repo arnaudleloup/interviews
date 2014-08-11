@@ -7,6 +7,9 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import datastructure.heap.MaxHeap;
+import datastructure.heap.MinHeap;
+
 public class HeapTest {
 	private final Random r = new Random();
 
