@@ -1,5 +1,8 @@
 package datastructure.symboltable.core;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import datastructure.symboltable.api.OrderedSymbolTable;
 
 public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedSymbolTable<K, V> {
@@ -52,8 +55,36 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedSymb
 
 	@Override
 	public void delete(K key) {
-		// TODO Auto-generated method stub
+		root = delete(root, key);
+	}
 
+	private Node delete(Node x, K key) {
+		if (x == null) {
+			return null;
+		}
+
+		int comp = key.compareTo(x.key);
+		if (comp < 0) {
+			return delete(x.left, key);
+		} else if (comp > 0) {
+			return delete(x.right, key);
+		} else {
+			if (x.right == null) {
+				return x.left;
+			}
+
+			if (x.left == null) {
+				return x.right;
+			}
+
+			Node t = x;
+			x = min(t.right);
+			x.right = deleteMin(t.right);
+			x.left = t.left;
+		}
+
+		x.N = size(x.right) + size(x.left) + 1;
+		return x;
 	}
 
 	@Override
@@ -81,8 +112,35 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedSymb
 
 	@Override
 	public Iterable<K> keys() {
-		// TODO Auto-generated method stub
-		return null;
+		return keys(min(), max());
+	}
+
+	@Override
+	public Iterable<K> keys(K lo, K hi) {
+		Queue<K> queue = new LinkedList<>();
+		keys(root, queue, lo, hi);
+		return queue;
+	}
+
+	private void keys(Node x, Queue<K> queue, K lo, K hi) {
+		if (x == null) {
+			return;
+		}
+
+		int complo = lo.compareTo(x.key);
+		int comphi = hi.compareTo(x.key);
+
+		if (complo < 0) {
+			keys(x.left, queue, lo, hi);
+		}
+
+		if (complo <= 0 && comphi >= 0) {
+			queue.add(x.key);
+		}
+
+		if (comphi > 0) {
+			keys(x.right, queue, lo, hi);
+		}
 	}
 
 	@Override
@@ -240,14 +298,14 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedSymb
 
 	@Override
 	public int size(K lo, K hi) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		Iterable<K> itr = keys(lo, hi);
+		int size = 0;
+		while (itr.iterator().hasNext()) {
+			itr.iterator().next();
+			size++;
+		}
 
-	@Override
-	public Iterable<K> keys(K lo, K hi) {
-		// TODO Auto-generated method stub
-		return null;
+		return size;
 	}
 
 	private class Node {
