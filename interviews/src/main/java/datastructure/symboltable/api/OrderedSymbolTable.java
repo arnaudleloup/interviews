@@ -1,6 +1,6 @@
 package datastructure.symboltable.api;
 
-public interface OrderedSymbolTable<K, V> extends SymbolTable<K, V> {
+public interface OrderedSymbolTable<K extends Comparable<K>, V> extends SymbolTable<K, V> {
 
 	/**
 	 * Returns the smallest key.
