@@ -18,7 +18,7 @@ public class IslandRainTest {
 	public void testComplex2() {
 		int[] heights = {20, 18, 19, 17, 18, 16, 17, 15, 16, 14, 15, 13, 14, 12, 13, 11, 12, 10,
 				11, 9, 10, 8, 9, 7, 8, 6, 7, 5, 6, 4, 5, 3, 4, 2, 3, 1, 2, 0, 1};
-		int expected = 21;
+		int expected = 19;
 		int actual = IslandRain.f(heights);
 		assertEquals(expected, actual);
 	}
