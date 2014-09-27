@@ -47,9 +47,7 @@ public class FindKth {
 		Random random = new Random();
 		for (int i = 0; i < t.length; i++) {
 			int r = random.nextInt(t.length);
-			int temp = t[i];
-			t[i] = t[r];
-			t[r] = temp;
+			swap(t, i, r);
 		}
 	}
 }
