@@ -79,11 +79,15 @@ public class FindM {
 			}
 		}
 
+		// Two possibilites:
+		//  * the element t[lo + 1] has the same value the t[lo]. Then m = t[lo].
+		//  * the element t[lo + 1] is greater than t[lo]. Then m is the number of elements
+		//    greater than t[lo] == elements at the right of lo == t.length - 1 - lo
+		int m = t[lo];
 		if (lo == t.length - 1) {
-			return t[lo];
+			return m;
 		}
 
-		int m = t[lo];
 		int next = FindKth.f(t, lo + 2);
 		if (next == m) {
 			return m;

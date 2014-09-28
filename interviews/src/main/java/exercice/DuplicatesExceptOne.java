@@ -33,6 +33,8 @@ public class DuplicatesExceptOne {
 					lo = partitionDuplicates(t, p, hi); // O(hi - lo) / O(1)
 				}
 			} else {
+				// Here p = q * k + 1.
+				// This means the unique element is before p.
 				hi = p - 1;
 			}
 		}
