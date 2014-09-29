@@ -3,7 +3,8 @@ package exercice;
 /**
  * Datastructure supporting void add(int e) and int median() method
  * where each added value is bounded by k.
- * add and median in O(k) time
+ * add in O(1) time
+ * median in O(k) time
  */
 public class FindMedianBounded {
 
