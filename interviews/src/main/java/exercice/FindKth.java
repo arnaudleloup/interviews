@@ -45,8 +45,8 @@ public class FindKth {
 
 	private static void shuffle(int[] t) {
 		Random random = new Random();
-		for (int i = 0; i < t.length; i++) {
-			int r = random.nextInt(t.length);
+		for (int i = t.length - 1; i >= 0; i--) {
+			int r = random.nextInt(i);
 			swap(t, i, r);
 		}
 	}
