@@ -33,10 +33,10 @@ public class QueryExpansion {
 			return;
 		}
 
-		for (String syno : synos.get(original.get(partial.size()))) {
-			List<String> newCq = new ArrayList<>(partial);
-			newCq.add(syno);
-			dfs(original, newCq, all, synos);
+		for (String syno : synos.get(original.get(partial.size()))) { // next synonym to be handled
+			List<String> newPartial = new ArrayList<>(partial);
+			newPartial.add(syno);
+			dfs(original, newPartial, all, synos);
 		}
 	}
 }

@@ -47,10 +47,10 @@ public class TopKQueryExpansion {
 			return;
 		}
 
-		for (QuerySynonym s : synos.get(original.get(partial.size()))) {
-			PartialQuery newCq = new PartialQuery(partial);
-			newCq.add(s);
-			dfs(original, newCq, synos, heap, k);
+		for (QuerySynonym s : synos.get(original.get(partial.size()))) { // next synonym to be handled
+			PartialQuery newPartial = new PartialQuery(partial);
+			newPartial.add(s);
+			dfs(original, newPartial, synos, heap, k);
 		}
 	}
 
