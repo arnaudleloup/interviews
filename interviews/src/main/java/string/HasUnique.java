@@ -1,4 +1,4 @@
-package exercice;
+package string;
 
 public class HasUnique {
 

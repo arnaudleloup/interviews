@@ -1,4 +1,4 @@
-package exercice;
+package array;
 
 public class TwoArraysMerge {
 

@@ -1,10 +1,12 @@
-package exercice;
+package array;
 
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
 import org.junit.Test;
+
+import array.FindUnsortedSequence;
 
 public class FindUnsortedSequenceTest {
 

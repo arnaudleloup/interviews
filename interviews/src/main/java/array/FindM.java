@@ -1,7 +1,8 @@
-package exercice;
+package array;
 
 import java.util.Arrays;
 import java.util.Random;
+
 
 /**
  * Given an unsorted array of integers of size n,

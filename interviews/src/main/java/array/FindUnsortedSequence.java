@@ -1,4 +1,4 @@
-package exercice;
+package array;
 
 /**
  * Given an array of integers, write a method to find indices m and n

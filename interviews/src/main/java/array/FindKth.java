@@ -1,9 +1,16 @@
-package exercice;
+package array;
 
 import java.util.Random;
 
+/**
+ * Find the k-th element in an unsorted array.
+ */
 public class FindKth {
 
+	/**
+	 * Quick select based implementation.
+	 * O(n) / O(1)
+	 */
 	public static int f(int[] t, int k) {
 		shuffle(t);
 

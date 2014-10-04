@@ -1,4 +1,4 @@
-package exercice;
+package string;
 
 public class LongestPrefix {
 	public static String f(String s) {

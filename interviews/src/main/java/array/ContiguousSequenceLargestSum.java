@@ -1,4 +1,4 @@
-package exercice;
+package array;
 
 /**
  * You are given an array of integers (both positive and negative).

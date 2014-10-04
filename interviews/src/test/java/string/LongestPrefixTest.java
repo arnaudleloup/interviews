@@ -1,8 +1,10 @@
-package exercice;
+package string;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import string.LongestPrefix;
 
 public class LongestPrefixTest {
 
