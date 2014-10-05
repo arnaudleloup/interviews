@@ -10,10 +10,10 @@ import java.util.Map;
  */
 public class QueryExpansion {
 
-	public static List<List<String>> queryExpansion(List<String> query, Map<String, List<String>> synos) {
-		List<List<String>> all = new ArrayList<>(); // all queries
-		List<String> partial = new ArrayList<>(); // current query
-		dfs(query, partial, all, synos);
+	public static List<String[]> queryExpansion(String[] query, Map<String, List<String>> synonyms) {
+		List<String[]> all = new ArrayList<>(); // all queries
+		String[] partial = new String[query.length]; // current query
+		dfs(query, partial, all, synonyms, 0);
 
 		return all;
 	}
@@ -24,19 +24,32 @@ public class QueryExpansion {
 	 * @param original the original query.
 	 * @param partial the partial query being built.
 	 * @param all the already built queries.
-	 * @param synos the dictionary of synonyms.
+	 * @param synonyms the dictionary of synonyms.
+	 * @param i the i-th word of the original query to be considered.
 	 */
-	private static void dfs(List<String> original, List<String> partial, List<List<String>> all,
-			Map<String, List<String>> synos) {
-		if (partial.size() == original.size()) {
-			all.add(partial);
+	private static void dfs(String[] original, String[] partial, List<String[]> all,
+			Map<String, List<String>> synonyms, int i) {
+		if (i == original.length) {
+			all.add(copy(partial));
 			return;
 		}
 
-		for (String syno : synos.get(original.get(partial.size()))) { // next synonym to be handled
-			List<String> newPartial = new ArrayList<>(partial);
-			newPartial.add(syno);
-			dfs(original, newPartial, all, synos);
+		String nextWord = original[i];
+		for (String synonym : synonyms.get(nextWord)) { // next synonym to be handled
+			partial[i] = synonym;
+			dfs(original, partial, all, synonyms, ++i);
+			i--;
+			partial[i] = null;
 		}
+	}
+
+	private static String[] copy(String[] a) {
+		String[] c = new String[a.length];
+
+		for (int i = 0; i < a.length; i++) {
+			c[i] = a[i];
+		}
+
+		return c;
 	}
 }

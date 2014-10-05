@@ -11,14 +11,14 @@ import java.util.PriorityQueue;
  */
 public class TopKQueryExpansion {
 
-	public static List<List<String>> queryExpansion(List<String> query,
-			Map<String, List<QuerySynonym>> synos, int k) {
-		PriorityQueue<PartialQuery> heap = new PriorityQueue<>();
-		PartialQuery partial = new PartialQuery();
-		dfs(query, partial, synos, heap, k);
+	public static List<String[]> queryExpansion(String[] query,
+			Map<String, List<QuerySynonym>> synonyms, int k) {
+		PriorityQueue<PartialQuery> topK = new PriorityQueue<>();
+		PartialQuery partial = new PartialQuery(query.length);
+		dfs(query, partial, synonyms, topK, k);
 
 		// Build the queries to be returned from the priority queue
-		List<List<String>> queries = buildQueries(heap);
+		List<String[]> queries = buildQueries(topK, query.length);
 
 		return queries;
 	}
@@ -28,39 +28,42 @@ public class TopKQueryExpansion {
 	 * 
 	 * @param original the original query.
 	 * @param partial the partial query being built.
-	 * @param synos the dictionary of synonyms.
-	 * @param heap the heap containing the top k queries
+	 * @param synonyms the dictionary of synonyms.
+	 * @param topK the heap containing the top k queries
 	 * @param k the max number of similar queries
 	 */
-	private static void dfs(List<String> original, PartialQuery partial,
-			Map<String, List<QuerySynonym>> synos, PriorityQueue<PartialQuery> heap, int k) {
-		if (heap.size() == k && partial.getProba() < heap.peek().getProba()) {
+	private static void dfs(String[] original, PartialQuery partial,
+			Map<String, List<QuerySynonym>> synonyms, PriorityQueue<PartialQuery> topK, int k) {
+		if (topK.size() == k && partial.getProbability() < topK.peek().getProbability()) {
 			return;
 		}
 
-		if (partial.size() == original.size()) {
-			heap.add(partial);
-			if (heap.size() > k) {
-				heap.poll();
+		if (partial.getWords() == original.length) {
+			topK.add(new PartialQuery(partial));
+			if (topK.size() > k) {
+				topK.poll();
 			}
 
 			return;
 		}
 
-		for (QuerySynonym s : synos.get(original.get(partial.size()))) { // next synonym to be handled
-			PartialQuery newPartial = new PartialQuery(partial);
-			newPartial.add(s);
-			dfs(original, newPartial, synos, heap, k);
+		String nextWord = original[partial.getWords()];
+		for (QuerySynonym synonym : synonyms.get(nextWord)) { // next synonym to be handled
+			partial.add(synonym);
+			dfs(original, partial, synonyms, topK, k);
+			partial.removeLast();
 		}
 	}
 
-	private static List<List<String>> buildQueries(PriorityQueue<PartialQuery> heap) {
-		List<List<String>> queries = new ArrayList<>();
-		while (!heap.isEmpty()) {
-			PartialQuery list = heap.poll();
-			List<String> q = new ArrayList<>();
+	private static List<String[]> buildQueries(PriorityQueue<PartialQuery> topK, int queryLength) {
+		List<String[]> queries = new ArrayList<>();
+
+		while (!topK.isEmpty()) {
+			PartialQuery list = topK.poll();
+			String[] q = new String[queryLength];
+			int i = 0;
 			for(QuerySynonym s : list) {
-				q.add(s.getValue());
+				q[i++] = s.getValue();
 			}
 
 			queries.add(q);

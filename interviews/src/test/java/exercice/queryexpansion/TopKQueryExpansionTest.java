@@ -1,5 +1,7 @@
 package exercice.queryexpansion;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,20 +13,24 @@ public class TopKQueryExpansionTest {
 
 	@Test
 	public void test() {
-		List<String> query = Arrays.asList("pictures", "of", "cat", "and", "dog");
+		String[] query = {"pictures", "of", "cat", "and", "dog"};
 		Map<String, List<QuerySynonym>> synos = buildSyno();
 		int k = 10;
-		List<List<String>> queries = TopKQueryExpansion.queryExpansion(query, synos, k);
+		List<String[]> queries = TopKQueryExpansion.queryExpansion(query, synos, k);
 
-		for (List<String> list : queries) {
-			System.out.println(list);
+		assertEquals(10, queries.size());
+		for (String[] list : queries) {
+			for (String s : list) {
+				System.out.print(s + " ");
+			}
+			System.out.println();
 		}
 	}
 
 	private Map<String, List<QuerySynonym>> buildSyno() {
 		Map<String, List<QuerySynonym>> synos = new HashMap<>();
 
-		List<QuerySynonym> syno1 = Arrays.asList(new QuerySynonym("pictures", 1),
+		List<QuerySynonym> syno1 = Arrays.asList(new QuerySynonym("pictures", 0.8),
 				new QuerySynonym("images", 0.8),
 				new QuerySynonym("photos", 0.7),
 				new QuerySynonym("draw", 0.3),

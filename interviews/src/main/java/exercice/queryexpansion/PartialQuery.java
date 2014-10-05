@@ -1,34 +1,44 @@
 package exercice.queryexpansion;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 public class PartialQuery implements Comparable<PartialQuery>, Iterable<QuerySynonym> {
 
-	private final List<QuerySynonym> list;
+	private final QuerySynonym[] queries;
+	private int words = 0; // number of words in the partial query
 
-	public PartialQuery() {
-		list = new ArrayList<>();
+	public PartialQuery(int queryLength) {
+		queries = new QuerySynonym[queryLength];
 	}
 
-	public PartialQuery(PartialQuery pq) {
-		this.list = new ArrayList<>(pq.list);
+	public PartialQuery(PartialQuery partial) {
+		queries = new QuerySynonym[partial.queries.length];
+		this.words = partial.words;
+
+		int i = 0;
+		for (QuerySynonym s : partial) {
+			queries[i++] = s;
+		}
 	}
 
 	public void add(QuerySynonym s) {
-		list.add(s);
+		queries[words++] = s;
 	}
 
-	public int size() {
-		return list.size();
+	public void removeLast() {
+		queries[--words] = null;
+	}
+
+	public int getWords() {
+		return words;
 	}
 
 	@Override
 	public int compareTo(PartialQuery o) {
-		if (getProba() < o.getProba()) {
+		if (getProbability() < o.getProbability()) {
 			return -1;
-		} else if (getProba() == o.getProba()) {
+		} else if (getProbability() == o.getProbability()) {
 			return 0;
 		} else {
 			return 1;
@@ -37,14 +47,31 @@ public class PartialQuery implements Comparable<PartialQuery>, Iterable<QuerySyn
 
 	@Override
 	public Iterator<QuerySynonym> iterator() {
-		return list.iterator();
+		return new Iterator<QuerySynonym>() {
+			private int i = 0;
+
+			@Override
+			public boolean hasNext() {
+				return i < queries.length;
+			}
+
+			@Override
+			public QuerySynonym next() {
+				return queries[i++];
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+		};
 	}
 
-	public double getProba() {
+	public double getProbability() {
 		double p = 1;
 
-		for (QuerySynonym s : list) {
-			p *= s.getProba();
+		for (int i = 0; i < words; i++) {
+			p *= queries[i].getProbability();
 		}
 
 		return p;
@@ -54,7 +81,7 @@ public class PartialQuery implements Comparable<PartialQuery>, Iterable<QuerySyn
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((list == null) ? 0 : list.hashCode());
+		result = prime * result + Arrays.hashCode(queries);
 		return result;
 	}
 
@@ -70,11 +97,7 @@ public class PartialQuery implements Comparable<PartialQuery>, Iterable<QuerySyn
 			return false;
 		}
 		PartialQuery other = (PartialQuery) obj;
-		if (list == null) {
-			if (other.list != null) {
-				return false;
-			}
-		} else if (!list.equals(other.list)) {
+		if (!Arrays.equals(queries, other.queries)) {
 			return false;
 		}
 		return true;
@@ -82,6 +105,6 @@ public class PartialQuery implements Comparable<PartialQuery>, Iterable<QuerySyn
 
 	@Override
 	public String toString() {
-		return "PartialQuery [list=" + list + "]";
+		return "PartialQuery [queries=" + Arrays.toString(queries) + "]";
 	}
 }

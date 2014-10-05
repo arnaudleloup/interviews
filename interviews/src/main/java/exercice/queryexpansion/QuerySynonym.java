@@ -7,19 +7,19 @@ package exercice.queryexpansion;
 public class QuerySynonym {
 
 	private final String value;
-	private final double proba;
+	private final double probability;
 
-	public QuerySynonym(String value, double proba) {
+	public QuerySynonym(String value, double probability) {
 		this.value = value;
-		this.proba = proba;
+		this.probability = probability;
 	}
 
 	public String getValue() {
 		return value;
 	}
 
-	public double getProba() {
-		return proba;
+	public double getProbability() {
+		return probability;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class QuerySynonym {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(proba);
+		temp = Double.doubleToLongBits(probability);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
@@ -45,8 +45,8 @@ public class QuerySynonym {
 			return false;
 		}
 		QuerySynonym other = (QuerySynonym) obj;
-		if (Double.doubleToLongBits(proba) != Double
-				.doubleToLongBits(other.proba)) {
+		if (Double.doubleToLongBits(probability) != Double
+				.doubleToLongBits(other.probability)) {
 			return false;
 		}
 		if (value == null) {
@@ -61,6 +61,6 @@ public class QuerySynonym {
 
 	@Override
 	public String toString() {
-		return "QuerySynonym [value=" + value + ", proba=" + proba + "]";
+		return "QuerySynonym [value=" + value + ", proba=" + probability + "]";
 	}
 }
