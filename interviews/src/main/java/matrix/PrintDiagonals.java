@@ -1,5 +1,8 @@
 package matrix;
 
+/**
+ * Given a matrix, print it out diagonally.
+ */
 public class PrintDiagonals {
 
 	public static void f(int[][] A) {

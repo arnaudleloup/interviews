@@ -15,5 +15,4 @@ public class PrintDiagonalsTest {
 
 		PrintDiagonals.f(A);
 	}
-
 }
