@@ -6,6 +6,10 @@ package array;
 public class Rotation {
 
 	public static void rotate(int[] a, int d) {
+		if (d == 0) {
+			return;
+		}
+
 		int n = a.length;
 
 		if (d > n || d < n) {
@@ -38,6 +42,10 @@ public class Rotation {
 	 * Rotates only the elements included between lo and hi (both inclusive)
 	 */
 	public static void rotate(int[] a, int d, int lo, int hi) {
+		if (d == 0) {
+			return;
+		}
+
 		int n = hi - lo + 1;
 
 		if (d > n || d < n) {
