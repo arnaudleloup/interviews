@@ -6,6 +6,10 @@ package array;
 public class Rotation {
 
 	public static void rotate(int[] a, int d) {
+		rotate(a, d, 0, a.length - 1);
+	}
+
+	public static void rotate2(int[] a, int d) {
 		if (d == 0) {
 			return;
 		}
@@ -20,22 +24,9 @@ public class Rotation {
 			d = n + d;
 		}
 
-		int blocks = n / d;
-		for (int i = 1; i < blocks; i++) {
-			for (int j = 0; j < d; j++) {
-				swap(a, j, i * d + j);
-			}
-		}
-
-		// Last block is partial
-		int left = n - blocks * d;
-		if (left > 0) {
-			for (int i = 0; i < left; i++) {
-				swap(a, i, n - left + i);
-			}
-
-			rotate(a, d - left, 0, d - 1);
-		}
+		reverse(a, 0, n - 1);
+		reverse(a, 0, d - 1);
+		reverse(a, d, n - 1);
 	}
 
 	/**
@@ -81,5 +72,11 @@ public class Rotation {
 		int temp = a[i];
 		a[i] = a[k];
 		a[k] = temp;
+	}
+
+	private static void reverse(int[] a, int lo, int hi) {
+		while (lo < hi) {
+			swap(a, lo++, hi--);
+		}
 	}
 }
