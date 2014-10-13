@@ -29,6 +29,7 @@ public class BSTSum {
 		Deque<Node> hi = new ArrayDeque<>();
 		addRight(root, hi);
 
+		// used to know if a right branch or a left branch has already been visited
 		Map<Node, Boolean> rightDone = new HashMap<>();
 		Map<Node, Boolean> leftDone = new HashMap<>();
 
