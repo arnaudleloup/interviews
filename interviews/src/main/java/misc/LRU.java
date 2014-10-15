@@ -113,19 +113,9 @@ public class LRU<K, V> {
 		}
 
 		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((left == null) ? 0 : left.hashCode());
-			result = prime * result + ((right == null) ? 0 : right.hashCode());
-			result = prime * result + ((value == null) ? 0 : value.hashCode());
-			return result;
-		}
-
-		@Override
 		public String toString() {
-			return "DoublyLinkedListNode [value=" + value + ", left=" + left
-					+ ", right=" + right + "]";
+			return "DoublyLinkedListNode [key=" + key + ", value=" + value
+					+ ", left=" + left + ", right=" + right + "]";
 		}
 	}
 }
