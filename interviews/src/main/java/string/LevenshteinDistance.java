@@ -52,10 +52,10 @@ public class LevenshteinDistance {
 		// add
 		int c1 = dfs(s1.substring(0, i) + s2.charAt(i) + s1.substring(i, s1.length()), s2, i + 1, count + 1);
 
-		// remove
+		// delete
 		int c2 = dfs(s1.substring(0, i) + s1.substring(i + 1, s1.length()), s2, i, count + 1);
 
-		// edit
+		// substitute
 		int c3 = dfs(s1.substring(0, i) + s2.charAt(i) + s1.substring(i + 1, s1.length()), s2, i + 1, count + 1);
 
 		return min(c1, c2, c3);
