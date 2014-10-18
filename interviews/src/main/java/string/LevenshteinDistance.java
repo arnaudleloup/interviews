@@ -7,21 +7,20 @@ package string;
  */
 public class LevenshteinDistance {
 
-	private static int max = Integer.MAX_VALUE;
+	private static int min = Integer.MAX_VALUE;
 
 	public static int d(String s1, String s2) {
-		dfs(s1, s2, 0, 0);
-		return max;
+		return dfs(s1, s2, 0, 0);
 	}
 
 	private static int dfs(String s1, String s2, int i, int count) {
-		if (count > max) {
+		if (count > min) {
 			return count;
 		}
 
 		if (s1.length() <= i && s2.length() <= i) {
-			if (count < max) {
-				max = count;
+			if (count < min) {
+				min = count;
 			}
 
 			return count;
@@ -29,8 +28,8 @@ public class LevenshteinDistance {
 
 		if (s1.length() <= i) {
 			count += s2.length() - i;
-			if (count < max) {
-				max = count;
+			if (count < min) {
+				min = count;
 			}
 
 			return count;
@@ -38,8 +37,8 @@ public class LevenshteinDistance {
 
 		if (s2.length() <= i) {
 			count += s1.length() - i;
-			if (count < max) {
-				max = count;
+			if (count < min) {
+				min = count;
 			}
 
 			return count;
