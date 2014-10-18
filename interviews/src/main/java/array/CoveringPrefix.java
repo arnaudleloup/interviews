@@ -3,6 +3,11 @@ package array;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Find the first covering prefix of a given array.
+ * The first covering prefix of an array is the smallest index from which all
+ * the elements have already been seen.
+ */
 public class CoveringPrefix {
 
 	public static int f(int[] a) {
