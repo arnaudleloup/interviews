@@ -10,6 +10,10 @@ import java.util.Set;
  */
 public class CoveringPrefix {
 
+	/**
+	 * Time complexity: O(n)
+	 * Space complexity: O(n)
+	 */
 	public static int f(int[] a) {
 		Set<Integer> seen = new HashSet<>();
 		int index = -1;
