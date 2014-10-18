@@ -22,25 +22,6 @@ public class SortTest {
 	}
 
 	@Test
-	public void testMergeSort() {
-		int[] table = getUnsortedArray(100);
-		//		int[] table = {3, 1, 2};
-		for (int i : table) {
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		int[] merged = MergeSort.mergeSort(table);
-		for (int i : merged) {
-			System.out.print(i + " ");
-		}
-		for (int i = 0; i < merged.length; i++) {
-			if (i != merged.length - 1) {
-				assertTrue(merged[i] <= merged[i + 1]);
-			}
-		}
-	}
-
-	@Test
 	public void testLexicographicallyMergeSort() {
 		int[] table = getUnsortedArray(100);
 		//		int[] table = {3, 1, 2};
