@@ -55,6 +55,4 @@ public class SubstringReversalTest {
 		int[] actual = SubstringReversal.solve(S);
 		assertTrue(Arrays.toString(actual), Arrays.equals(expected, actual));
 	}
-
-
 }
