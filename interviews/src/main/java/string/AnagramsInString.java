@@ -60,4 +60,59 @@ public class AnagramsInString {
 
 		return false;
 	}
+
+	/**
+	 * Rabin-Karpe implementation.
+	 * Time complexity: O(n + m)
+	 * Space complexity: O(1)
+	 */
+	public static boolean f2(String s, String sub) {
+		int n = s.length();
+		int m = sub.length();
+		int v = initHash(sub, m);
+		int h = initHash(s, m);
+		if (h == v) {
+			return true;
+		}
+
+		for (int i = m; i < n; i++) {
+			h = removeHash(h, s.charAt(i - m));
+			h = addHash(h, s.charAt(i));
+			if (h == v) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private static Map<Character, Integer> hash = new HashMap<>();
+	static {
+		hash.put('a', 2);
+		hash.put('b', 3);
+		hash.put('c', 5);
+		hash.put('d', 7);
+		hash.put('e', 11);
+		hash.put('f', 13);
+		hash.put('g', 17);
+		hash.put('h', 19);
+	}
+
+	private static int initHash(String s, int n) {
+		int h = 1;
+
+		for (int i = 0; i < n; i++) {
+			h *= hash.get(s.charAt(i));
+		}
+
+		return h;
+	}
+
+	private static int removeHash(int h, char c) {
+		return h / hash.get(c);
+	}
+
+	private static int addHash(int h, char c) {
+		return h * hash.get(c);
+	}
 }

@@ -8,37 +8,14 @@ public class AnagramsInStringTest {
 
 	@Test
 	public void test() {
-		String s = "ababcbaba";
-		String sub = "baba";
-		boolean expected = true;
-		boolean actual = AnagramsInString.f(s, sub);
-		assertEquals(expected, actual);
-	}
+		assertEquals(true, AnagramsInString.f("ababcbaba", "baba"));
+		assertEquals(true, AnagramsInString.f("ababcbaba", "cbbba"));
+		assertEquals(false, AnagramsInString.f("ababcbaba", "cbaa"));
+		assertEquals(false, AnagramsInString.f("ababcbaba", "cbad"));
 
-	@Test
-	public void test2() {
-		String s = "ababcbaba";
-		String sub = "cbbba";
-		boolean expected = true;
-		boolean actual = AnagramsInString.f(s, sub);
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void test3() {
-		String s = "ababcbaba";
-		String sub = "cbaa";
-		boolean expected = false;
-		boolean actual = AnagramsInString.f(s, sub);
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void test4() {
-		String s = "ababcbaba";
-		String sub = "cbad";
-		boolean expected = false;
-		boolean actual = AnagramsInString.f(s, sub);
-		assertEquals(expected, actual);
+		assertEquals(true, AnagramsInString.f2("ababcbaba", "baba"));
+		assertEquals(true, AnagramsInString.f2("ababcbaba", "cbbba"));
+		assertEquals(false, AnagramsInString.f2("ababcbaba", "cbaa"));
+		assertEquals(false, AnagramsInString.f2("ababcbaba", "cbad"));
 	}
 }
