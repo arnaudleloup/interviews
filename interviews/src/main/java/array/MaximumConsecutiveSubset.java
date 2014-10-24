@@ -68,32 +68,37 @@ public class MaximumConsecutiveSubset {
 	public static int[] f2(int[] a) {
 		int n = a.length;
 
+		// contains the elements already seen
 		Set<Integer> saw = new HashSet<>();
+
+		// key = 9, value = 5 means that the greatest range of values ending at 9 starts from 5
 		Map<Integer, Integer> lower = new HashMap<>();
+
+		// key=3, value=7 means that the greatest range of values starting from 3 ends at 7
 		Map<Integer, Integer> higher = new HashMap<>();
 
 		for (int i = 0; i < n; i++) {
 			int e = a[i];
 
 			if (!saw.contains(e)) {
-				if (lower.containsKey(e - 1) && higher.containsKey(e + 1)) {
+				if (lower.containsKey(e - 1) && higher.containsKey(e + 1)) { // merge the two ranges
 					int lo = lower.get(e - 1);
 					int hi = higher.get(e + 1);
 					higher.put(lo, hi);
 					lower.put(hi, lo);
 					higher.remove(e + 1);
 					lower.remove(e - 1);
-				} else if (lower.containsKey(e - 1)) {
+				} else if (lower.containsKey(e - 1)) { // extend the range
 					int lo = lower.get(e - 1);
 					lower.put(e, lo);
 					higher.put(lo, e);
 					lower.remove(e - 1);
-				} else if (higher.containsKey(e + 1)) {
+				} else if (higher.containsKey(e + 1)) { // extend the range
 					int hi = higher.get(e + 1);
 					higher.put(e, hi);
 					lower.put(hi, e);
 					higher.remove(e + 1);
-				} else {
+				} else { // add the new value
 					lower.put(e, e);
 					higher.put(e, e);
 				}
