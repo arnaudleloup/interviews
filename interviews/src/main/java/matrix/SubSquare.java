@@ -13,14 +13,16 @@ public class SubSquare {
 	private static int BLACK = 1;
 
 	/**
-	 * Time complexity: O(n^4)
+	 * Time complexity: O(n^3)
 	 * Space complexity: O(n^2)
 	 */
 	public static int f(int[][] matrix) {
+		// Pre compute all black raws and columns
 		Map<Integer, Map<Integer, Integer>> rows = rows(matrix);
 		Map<Integer, Map<Integer, Integer>> columns = columns(matrix);
 		int max = Integer.MIN_VALUE;
 
+		// See for each black raw if it is a part of a black square
 		for (Entry<Integer, Map<Integer, Integer>> entry : rows.entrySet()) {
 			int i = entry.getKey();
 			for (Entry<Integer, Integer> ent : entry.getValue().entrySet()) {
