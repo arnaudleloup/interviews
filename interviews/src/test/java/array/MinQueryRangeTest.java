@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import array.MinQueryRange.MinOption;
+import array.MinQueryRange.Option;
 
 public class MinQueryRangeTest {
 
 	@Test
 	public void testMatrix() {
 		int[] a = {2, 5, 8, 4, 2, 1, 7, 4, 9, 3};
-		MinQueryRange matrix = new MinQueryRange(a, MinOption.MATRIX);
+		MinQueryRange matrix = new MinQueryRange(a, Option.MATRIX);
 		assertEquals(1, matrix.min(0, 9));
 		assertEquals(1, matrix.min(2, 7));
 		assertEquals(4, matrix.min(6, 8));
@@ -22,7 +22,7 @@ public class MinQueryRangeTest {
 	@Test
 	public void testTree() {
 		int[] a = {2, 5, 8, 4, 2, 1, 7, 4, 9, 3};
-		MinQueryRange matrix = new MinQueryRange(a, MinOption.TREE);
+		MinQueryRange matrix = new MinQueryRange(a, Option.TREE);
 		assertEquals(1, matrix.min(0, 9));
 		assertEquals(1, matrix.min(2, 7));
 		assertEquals(4, matrix.min(6, 8));
@@ -33,7 +33,7 @@ public class MinQueryRangeTest {
 	@Test
 	public void testPowerOfTwo() {
 		int[] a = {2, 5, 8, 4, 2, 1, 7, 4, 9, 3};
-		MinQueryRange matrix = new MinQueryRange(a, MinOption.POWER_OF_2);
+		MinQueryRange matrix = new MinQueryRange(a, Option.POWER_OF_2);
 		assertEquals(1, matrix.min(0, 9));
 		assertEquals(1, matrix.min(2, 7));
 		assertEquals(4, matrix.min(6, 8));

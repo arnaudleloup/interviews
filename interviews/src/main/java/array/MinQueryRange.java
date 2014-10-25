@@ -1,8 +1,5 @@
 package array;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import number.PowerOfTwo;
 
 /**
@@ -12,7 +9,7 @@ import number.PowerOfTwo;
  */
 public class MinQueryRange {
 
-	public enum MinOption {
+	public enum Option {
 
 		/**
 		 * Time complexity of min : O(1)
@@ -44,91 +41,48 @@ public class MinQueryRange {
 		 * Space complexity : O(n)
 		 */
 		TREE {
-			class Range {
-				int lo;
-				int hi;
-				int min;
 
-				public Range(int lo, int hi) {
-					this.lo = lo;
-					this.hi = hi;
-				}
-			}
-
-			private Range[] tree;
+			private int[] tree;
+			private int n;
 
 			@Override
 			protected void init(int[] a) {
-				int n = a.length;
-				tree = new Range[PowerOfTwo.ceiling(n) * 2];
-				initTree(1, 0, n - 1);
-				initMin(a);
+				n = a.length;
+				tree = new int[PowerOfTwo.ceiling(n) * 2];
+				initTree(1, 0, n - 1, a);
 			}
 
-			private void initTree(int i, int lo, int hi) {
-				tree[i] = new Range(lo, hi);
-
-				if (lo != hi) {
+			private int initTree(int i, int lo, int hi, int[] a) {
+				if (lo == hi) {
+					tree[i] = a[lo];
+				} else {
 					int mid = lo + (hi - lo) / 2;
-					initTree(2 * i, lo, mid);
-					initTree(2 * i + 1, mid + 1, hi);
+					int min1 = initTree(2 * i, lo, mid, a);
+					int min2 = initTree(2 * i + 1, mid + 1, hi, a);
+					tree[i] = Math.min(min1, min2);
 				}
-			}
 
-			private void initMin(int[] a) {
-				for (int i = tree.length - 1; i > 0; i--) {
-					Range r = tree[i];
-					if (r != null) {
-						if (r.hi - r.lo == 0) {
-							r.min = a[r.lo];
-						} else {
-							r.min = Math.min(tree[2 * i].min, tree[2 * i + 1].min);
-						}
-					}
-				}
+				return tree[i];
 			}
 
 			@Override
 			protected int min(int lo, int hi) {
-				Set<Range> ranges = new HashSet<>();
-
-				while (lo <= hi) {
-					Range r = findRange(lo, hi);
-					ranges.add(r);
-					lo = r.hi + 1;
-				}
-
-				int min = Integer.MAX_VALUE;
-				for (Range r : ranges) {
-					if (r.min < min) {
-						min = r.min;
-					}
-				}
-
-				return min;
+				return min(lo, hi, 0, n - 1, 1);
 			}
 
-			private Range findRange(int lo, int hi) {
-				Range r = tree[1];
-				int i = 1;
-
-				while (r.lo != lo || r.hi > hi) {
-					int mid = r.lo + (r.hi - r.lo) / 2;
-
-					if (r.lo != lo) {
-						if (lo <= mid) {
-							i *= 2;
-							r = tree[i];
-						} else {
-							i = 2 * i + 1;
-							r = tree[i];
-						}
-					} else {
-						i *= 2;
-						r = tree[i];
-					}
+			private int min(int lo, int hi, int i, int j, int node) {
+				if (lo > j || hi < i) {
+					return Integer.MAX_VALUE;
 				}
-				return r;
+
+				if (i >= lo && j <= hi) {
+					return tree[node];
+				}
+
+				int mid = i + (j - i) / 2;
+				int left = min(lo, hi, i, mid, 2 * node);
+				int right = min(lo, hi, mid + 1, j, 2 * node + 1);
+				return Math.min(left, right);
 			}
 		},
 
@@ -191,9 +145,9 @@ public class MinQueryRange {
 		}
 	}
 
-	private final MinOption option;
+	private final Option option;
 
-	public MinQueryRange(int[] a, MinOption option) {
+	public MinQueryRange(int[] a, Option option) {
 		this.option = option;
 		option.init(a);
 	}
