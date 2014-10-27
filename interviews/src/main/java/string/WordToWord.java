@@ -17,7 +17,9 @@ import java.util.Set;
 public class WordToWord {
 
 	/**
-	 * Time complexity: O(n)
+	 * n = number of words into the dictionary
+	 * L = word length
+	 * Time complexity: O(n * L)
 	 * Space complexity: O(n)
 	 */
 	public static int f(Set<String> words, String start, String end) {
