@@ -23,6 +23,10 @@ public class WordToWord {
 	 * Space complexity: O(n)
 	 */
 	public static int f(Set<String> words, String start, String end) {
+		if (start.equals(end)) {
+			return 0;
+		}
+
 		Set<String> marked = new HashSet<>();
 		marked.add(start);
 		Set<String> frontier = new HashSet<>();
