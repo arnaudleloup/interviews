@@ -1,6 +1,13 @@
 package string;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,68 +26,78 @@ public class WordToWord {
 	/**
 	 * n = number of words into the dictionary
 	 * L = word length
-	 * Time complexity: O(n^2 * L)
+	 * Time complexity: O(n * L)
 	 * Space complexity: O(n)
 	 */
-	public static int f(Set<String> words, String start, String end) {
+	public static List<String> f(Set<String> dictionnary, String start, String end) {
 		if (start.equals(end)) {
-			return 0;
+			return Arrays.asList(start);
 		}
 
+		Map<String, String> parent = new HashMap<>();
 		Set<String> marked = new HashSet<>();
-		marked.add(start);
 		Set<String> frontier = new HashSet<>();
-		frontier.addAll(adj(words, start));
-		int i = 1;
+		frontier.add(start);
 
 		while (!frontier.isEmpty()) {
 			Set<String> next = new HashSet<>();
-			for (String adj : frontier) {
-				if (!marked.contains(adj)) {
-					if (adj.equals(end)) {
-						return i;
-					}
+			for (String s : frontier) {
+				marked.add(s);
 
-					marked.add(adj);
-					next.addAll(adj(words, adj));
+				for (String adj : adj(dictionnary, s)) {
+					if (!marked.contains(adj)) {
+						next.add(adj);
+						parent.put(adj, s);
+						if (adj.equals(end)) {
+							break;
+						}
+					}
 				}
 			}
 
-			i++;
 			frontier = next;
+			if (frontier.contains(end)) {
+				break;
+			}
 		}
 
-		return -1;
+		if (!frontier.contains(end)) {
+			return new ArrayList<>();
+		}
+
+		Deque<String> stack = new ArrayDeque<>();
+		String s = end;
+		while (s != null) {
+			stack.addLast(s);
+			s = parent.get(s);
+		}
+
+		List<String> list = new ArrayList<>();
+		while (!stack.isEmpty()) {
+			list.add(stack.removeLast());
+		}
+
+		return list;
 	}
 
-	private static Set<String> adj(Set<String> words, String word) {
-		Set<String> adj = new HashSet<>();
+	/**
+	 * Time complexity : O(L)
+	 * Space complexity : O(1)
+	 */
+	private static Set<String> adj(Set<String> dictionnary, String word) {
+		Set<String> adjs = new HashSet<>();
 
-		for (String w : words) {
-			if (isAdj(word, w)) {
-				adj.add(w);
+		for (int i = 0; i < word.length(); i++) {
+			for (char c = 'A'; c <= 'Z'; c++) {
+				if (c != word.charAt(i)) {
+					String adj = word.substring(0, i) + c + word.substring(i + 1, word.length());
+					if (dictionnary.contains(adj)) {
+						adjs.add(adj);
+					}
+				}
 			}
 		}
 
-		return adj;
-	}
-
-	private static boolean isAdj(String word1, String word2) {
-		if (word1.length() != word2.length()) {
-			return false;
-		}
-
-		int diff = 0;
-		for (int i = 0; i < word1.length(); i++) {
-			if (word1.charAt(i) != word2.charAt(i)) {
-				diff++;
-			}
-
-			if (diff > 1) {
-				return false;
-			}
-		}
-
-		return diff == 1;
+		return adjs;
 	}
 }

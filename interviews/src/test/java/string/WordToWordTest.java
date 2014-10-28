@@ -2,6 +2,7 @@ package string;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,9 +13,10 @@ public class WordToWordTest {
 	@Test
 	public void test() {
 		Set<String> dictionnary = dictionnary();
-		assertEquals(4, WordToWord.f(dictionnary, "DAMP", "LIKE"));
-		assertEquals(2, WordToWord.f(dictionnary, "HOUSE", "TORSE"));
-		assertEquals(3, WordToWord.f(dictionnary, "HOUSE", "TOISE"));
+		assertEquals(Arrays.asList("DAMP", "LAMP", "LIMP", "LIME", "LIKE"), WordToWord.f(dictionnary, "DAMP", "LIKE"));
+		assertEquals(Arrays.asList("HOUSE", "HORSE", "TORSE"), WordToWord.f(dictionnary, "HOUSE", "TORSE"));
+		assertEquals(Arrays.asList("HOUSE", "HORSE", "TORSE", "TOISE"), WordToWord.f(dictionnary, "HOUSE", "TOISE"));
+		assertEquals(Arrays.asList("SMOKE"), WordToWord.f(dictionnary, "SMOKE", "SMOKE"));
 	}
 
 	private Set<String> dictionnary() {
