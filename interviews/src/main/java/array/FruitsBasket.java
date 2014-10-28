@@ -26,6 +26,11 @@ public class FruitsBasket {
 		random = new Random(seed);
 	}
 
+	/**
+	 * n = number of different fruits
+	 * Time complexity : O(log(n))
+	 * Space complexity : O(n)
+	 */
 	public String f(Map<String, Integer> fruits) {
 		int n = fruits.size();
 		Map<Integer, String> cumulativeFrMap = new HashMap<>();
