@@ -2,7 +2,7 @@ package misc;
 
 /**
  * n citizens in a town want to elect a mayor.
- * The mayor must be known by everybody, but must known no one.
+ * The mayor must be known by everybody, but must know no one.
  */
 public class Mayor {
 	public interface Relationship {
@@ -16,19 +16,24 @@ public class Mayor {
 	 */
 	public static int f(Relationship relationship) {
 		int n = relationship.people();
-		int prev = 0;
+		int candidate = 0;
 		for (int i = 1; i < n; i++) {
-			if (relationship.knows(prev, i)) {
-				prev = i;
+			if (relationship.knows(candidate, i)) { // if candidate knows i, candidate can not be the mayor
+				candidate = i;
 			}
 		}
 
+		// check that the last candidate can be the mayor
 		for (int i = 0; i < n; i++) {
-			if (!relationship.knows(i,  prev)) {
+			if (!relationship.knows(i,  candidate)) {
+				return -1;
+			}
+
+			if (candidate != i && relationship.knows(candidate, i)) {
 				return -1;
 			}
 		}
 
-		return prev;
+		return candidate;
 	}
 }

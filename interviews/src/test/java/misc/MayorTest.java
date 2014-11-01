@@ -48,5 +48,4 @@ public class MayorTest {
 	public void test() {
 		assertEquals(3, Mayor.f(new Relationship1()));
 	}
-
 }
