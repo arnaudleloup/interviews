@@ -15,27 +15,22 @@ public class RangeIntersection {
 
 		int startCount = 0;
 		int finishCount = 0;
+		int[] intersections = new int[n];
 
 		for (int i = 0; i < 2 * n; i++) {
 			Endpoint endpoint = endpoints[i];
 			if (Endpoint.Type.START == endpoint.type) {
-				endpoint.count = -(finishCount + 1);
+				intersections[endpoint.index] = -(finishCount + 1);
 				startCount++;
 			} else {
-				endpoint.count = startCount;
+				intersections[endpoint.index] += startCount;
 				finishCount++;
 			}
 		}
 
-		int[] intersections = new int[n];
-		for (Endpoint endpoint : endpoints) {
-			intersections[endpoint.index] += endpoint.count;
-		}
-
-		int[] range = new int[2];
-		range[0] = ranges[0][0];
-		range[1] = ranges[0][1];
+		int[] range = {ranges[0][0], ranges[0][1]};
 		int max = intersections[0];
+
 		for (int i = 1; i < n; i++) {
 			if (intersections[i] > max
 					|| (intersections[i] == max
@@ -59,7 +54,6 @@ public class RangeIntersection {
 		Type type;
 		int index;
 		int value;
-		int count;
 
 		public Endpoint(Type type, int index, int value) {
 			this.type = type;
