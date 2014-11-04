@@ -1,8 +1,10 @@
-package exercice;
+package array;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import array.IslandRain;
 
 public class IslandRainTest {
 
