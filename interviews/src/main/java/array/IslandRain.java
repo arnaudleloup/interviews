@@ -19,18 +19,16 @@ public class IslandRain {
 
 	/**
 	 * Time complexity: O(n)
-	 * Space complexity: O(1)
+	 * Space complexity: O(n)
 	 */
 	public static int f(int[] heights) {
 		int n = heights.length;
 		int count = 0;
 		Deque<Integer> stack = new ArrayDeque<>();
-		stack.add(0);
 
-		for (int i = 1; i < n; i++) {
-			if (heights[i] >= heights[i - 1]) {
-				int h = heights[i - 1];
-				stack.removeLast();
+		for (int i = 0; i < n; i++) {
+			if (!stack.isEmpty() && heights[i] >= heights[stack.getLast()]) {
+				int h = heights[stack.removeLast()];
 
 				while(!stack.isEmpty() && heights[stack.getLast()] > h) {
 					int j = stack.getLast();
