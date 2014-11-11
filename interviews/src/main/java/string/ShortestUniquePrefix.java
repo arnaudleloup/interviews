@@ -22,8 +22,12 @@ public class ShortestUniquePrefix {
 	 */
 	public static Set<String> f(String[] strings) {
 		Node root = new Node();
+		Set<String> added = new HashSet<>();
 		for (String s : strings) {
-			root = put(root, s, 0);
+			if (!added.contains(s)) {
+				root = put(root, s, 0);
+				added.add(s);
+			}
 		}
 
 		Set<String> prefix = new HashSet<>();

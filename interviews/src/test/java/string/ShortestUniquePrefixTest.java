@@ -23,4 +23,11 @@ public class ShortestUniquePrefixTest {
 		Set<String> prefix = new HashSet<>(Arrays.asList("z", "dog", "du", "dot", "dov"));
 		assertEquals(prefix, ShortestUniquePrefix.f(strings));
 	}
+
+	@Test
+	public void testDuplicates() {
+		String[] strings = {"test", "test", "some"};
+		Set<String> prefix = new HashSet<>(Arrays.asList("s", "t"));
+		assertEquals(prefix, ShortestUniquePrefix.f(strings));
+	}
 }
