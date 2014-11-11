@@ -20,12 +20,16 @@ public class Power {
 	 * Time complexity: O(log(b))
 	 * Space complexity: O(1)
 	 */
-	public static int f2(int a, int b) {
-		int count = 1;
+	public static double f2(double a, int b) {
+		double count = 1;
+		if (b < 0) {
+			a = 1 / a;
+			b = -b;
+		}
 
 		for (int i = 0; i < 32; i++) {
 			if ((b & 1) == 1) {
-				int temp = a;
+				double temp = a;
 				for (int j = 0; j < i; j++) {
 					temp *= temp;
 				}
