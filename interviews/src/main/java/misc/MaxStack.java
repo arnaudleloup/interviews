@@ -30,9 +30,9 @@ public class MaxStack {
 		}
 	}
 
-	public int max() {
+	public Integer max() {
 		if (maxs.isEmpty()) {
-			throw new UnsupportedOperationException();
+			return null;
 		}
 
 		return maxs.getLast();
