@@ -24,4 +24,18 @@ public class PalindromeTest {
 		assertEquals(Arrays.asList("abcba", "kik"), Palindrome.minPalindromes("abcbakik"));
 		assertEquals(Arrays.asList("a", "aba"), Palindrome.minPalindromes("aaba"));
 	}
+
+	@Test
+	public void testLongestPalindromicSubstring() {
+		assertEquals("ghihg", Palindrome.longestPalindromicSubstring("abaefghihgtu"));
+		assertEquals("fggf", Palindrome.longestPalindromicSubstring("abaefggfhihgtu"));
+		assertEquals("a", Palindrome.longestPalindromicSubstring("abcdefgh"));
+	}
+
+	@Test
+	public void test() {
+		assertEquals(5, Palindrome.f("xyz"));
+		assertEquals(7, Palindrome.f("abaxy"));
+		assertEquals(9, Palindrome.f("ababaxy"));
+	}
 }
