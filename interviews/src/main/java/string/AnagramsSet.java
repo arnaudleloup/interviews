@@ -18,7 +18,7 @@ public class AnagramsSet {
 	 * n = set.size
 	 * L = string average length
 	 * 
-	 * Time complexity: O(n * L)
+	 * Time complexity: O(n * L * R)
 	 * Space complexity: O(n)
 	 */
 	public static Set<Set<String>> f(Set<String> set, int R) {
@@ -32,8 +32,8 @@ public class AnagramsSet {
 				freq.a[c]++;
 			}
 
-			if (!freqs.containsKey(freq)) { // time complexity: O(R)
-				freqs.put(freq, new HashSet<String>());
+			if (!freqs.containsKey(freq)) {
+				freqs.put(freq, new HashSet<String>()); // hashCode computation time complexity: O(R)
 			}
 
 			freqs.get(freq).add(s);
