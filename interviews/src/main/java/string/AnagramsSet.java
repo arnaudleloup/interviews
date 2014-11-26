@@ -17,10 +17,9 @@ public class AnagramsSet {
 	/**
 	 * n = set.size
 	 * L = string average length
-	 * R = alphabet radix
 	 * 
-	 * Time complexity: O(n * L * R)
-	 * Space complexity: O(n * L)
+	 * Time complexity: O(n * L)
+	 * Space complexity: O(n)
 	 */
 	public static Set<Set<String>> f(Set<String> set, int R) {
 		Map<CharFrequency, Set<String>> freqs = new HashMap<>();
