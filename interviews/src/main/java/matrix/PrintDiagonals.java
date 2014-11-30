@@ -14,8 +14,8 @@ public class PrintDiagonals {
 		}
 
 		for (int i = 1; i < n; i++) {
-			for (int j = m - 1; i + (m - 1 - j) < n && j >= 0; j--) {
-				System.out.print(matrix[i + (m - 1 - j)][j] + " ");
+			for (int j = m - 1; i + m - 1 - j < n && j >= 0; j--) {
+				System.out.print(matrix[i + m - 1 - j][j] + " ");
 			}
 			System.out.println();
 		}
