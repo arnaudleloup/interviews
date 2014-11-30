@@ -1,33 +1,32 @@
 package matrix.rain;
 
+
 public enum RainState {
 
-	DEFAULT {
+	INITIALIZING {
 		@Override
 		public RainState add(RainState state) {
 			return state;
 		}
 	},
 
-	ATLANTIC {
-		@Override
-		public RainState add(RainState state) {
-			if (PACIFIC == state || BOTH == state) {
-				return BOTH;
-			}
-
-			return ATLANTIC;
-		}
-	},
-
 	PACIFIC {
 		@Override
 		public RainState add(RainState state) {
-			if (ATLANTIC == state || BOTH == state) {
+			if (state == ATLANTIC || state == BOTH) {
 				return BOTH;
 			}
-
 			return PACIFIC;
+		}
+	},
+
+	ATLANTIC {
+		@Override
+		public RainState add(RainState state) {
+			if (state == PACIFIC || state == BOTH) {
+				return BOTH;
+			}
+			return ATLANTIC;
 		}
 	},
 
@@ -44,15 +43,7 @@ public enum RainState {
 			if (state != null) {
 				return state;
 			}
-
 			return NONE;
-		}
-	},
-
-	VISITING {
-		@Override
-		public RainState add(RainState state) {
-			return state;
 		}
 	};
 
