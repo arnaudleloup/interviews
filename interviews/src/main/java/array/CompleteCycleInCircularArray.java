@@ -1,7 +1,5 @@
 package array;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Given a circular array of relative indices, find out if there is a complete cycle. Each cell
@@ -22,24 +20,34 @@ public class CompleteCycleInCircularArray {
 	 */
 	public static boolean f(int[] a) {
 		int n = a.length;
-		Set<Integer> cycle = new HashSet<>();
+		boolean[] visited = new boolean[n];
+
 		int index = 0;
-		while (!cycle.contains(index)) {
-			cycle.add(index);
-			index = ((index + a[index]) % n + n) % n; // a % b is between -b + 1 and b - 1
+		for (int i = 0; i < n; i++) {
+			index = (index + a[index] + n) % n;
+
+			if (visited[index]) {
+				return false;
+			}
+
+			visited[index] = true;
 		}
 
-		return index == 0 && cycle.size() == n;
+		return true;
 	}
 
+	/**
+	 * Time complexity: O(n)
+	 * Space complexity: O(1)
+	 */
 	public static boolean f2(int[] a) {
 		int n = a.length;
 		int index = 0;
 
 		for (int i = 0; i < n; i++) {
-			index = ((index + a[index]) % n + n) % n; // a % b is between -b + 1 and b - 1
+			index = (index + a[index] + n) % n;
 
-			if (index == 0 && i < n - 1) { // subcycle
+			if (index == 0 && i < n - 1) {
 				return false;
 			}
 		}

@@ -16,6 +16,7 @@ public class CompleteCycleInCircularArrayTest {
 		assertEquals(false,CompleteCycleInCircularArray.f(new int[] {2, 2, 1}));
 		assertEquals(false,CompleteCycleInCircularArray.f(new int[] {1, 1, 1, -1}));
 		assertEquals(true,CompleteCycleInCircularArray.f(new int[] {-1, -1}));
+		assertEquals(false,CompleteCycleInCircularArray.f(new int[] {1, -1, 1, 1}));
 	}
 
 	@Test
@@ -28,5 +29,6 @@ public class CompleteCycleInCircularArrayTest {
 		assertEquals(false,CompleteCycleInCircularArray.f2(new int[] {2, 2, 1}));
 		assertEquals(false,CompleteCycleInCircularArray.f2(new int[] {1, 1, 1, -1}));
 		assertEquals(true,CompleteCycleInCircularArray.f2(new int[] {-1, -1}));
+		assertEquals(false,CompleteCycleInCircularArray.f2(new int[] {1, -1, 1, 1}));
 	}
 }
