@@ -1,5 +1,8 @@
 package number;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Given two strings a and b of the same length n that consist only of lucky digits (4 and 7).
  * What is the minimum number of operations that are needed to make string a equal to string b?
@@ -11,38 +14,66 @@ public class LuckyConversion {
 
 	/**
 	 * Time complexity: O(n)
-	 * Space complexity: O(1)
+	 * Space complexity: O(n)
 	 */
 	public static int f(String a, String b) {
 		int count = 0;
-		int n = a.length();
 		char[] ca = a.toCharArray();
 		char[] cb = b.toCharArray();
+		Set<Integer> fourToSeven = fourToSeven(a, b);
+		Set<Integer> sevenToFour = sevenToFour(a, b);
 
-		int j = 1;
-		for (int i = 0; i < n ; i++) {
-			char c = ca[i];
-			char d = cb[i];
-
-			if (c != d) {
-				while (j < n) {
-					if (ca[j] == d && cb[j] == c) {
-						swap(ca, i, j++);
-						break;
-					}
-
-					j++;
+		for (int i = 0; i < a.length(); i++) {
+			if (ca[i] == '4' && cb[i] == '7') {
+				if (!sevenToFour.isEmpty()) {
+					int index = sevenToFour.iterator().next();
+					swap(ca, i, index);
+					sevenToFour.remove(index);
+					fourToSeven.remove(i);
 				}
-
-				if (j == n) {
-					ca[i] = d;
+				count++;
+			} else if (ca[i] == '7' && cb[i] == '4') {
+				if (!fourToSeven.isEmpty()) {
+					int index = fourToSeven.iterator().next();
+					swap(ca, i, index);
+					fourToSeven.remove(index);
+					sevenToFour.remove(i);
 				}
-
 				count++;
 			}
 		}
 
 		return count;
+	}
+
+	private static Set<Integer> fourToSeven(String a, String b) {
+		Set<Integer> set = new HashSet<>();
+
+		for (int i = 0; i < a.length(); i++) {
+			if (a.charAt(i) == '4' && b.charAt(i) != '4') {
+				set.add(i);
+			}
+		}
+
+		return set;
+	}
+
+	private static Set<Integer> sevenToFour(String a, String b) {
+		Set<Integer> set = new HashSet<>();
+
+		for (int i = 0; i < a.length(); i++) {
+			if (a.charAt(i) == '7' && b.charAt(i) != '7') {
+				set.add(i);
+			}
+		}
+
+		return set;
+	}
+
+	private static void swap(char[] a, int i, int j) {
+		char temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
 	}
 
 	/**
@@ -67,11 +98,5 @@ public class LuckyConversion {
 		}
 
 		return Math.max(count4To7, count7To4);
-	}
-
-	private static void swap(char[] a, int i, int j) {
-		char temp = a[i];
-		a[i] = a[j];
-		a[j] = temp;
 	}
 }
