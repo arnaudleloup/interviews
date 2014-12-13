@@ -13,6 +13,7 @@ public class SignSortTest {
 		int[] a = {2, -4, 3, -2, -4, 4, 2};
 		int[] expected = {-4, -2, -4, 2, 3, 4, 2};
 		SignSort.f(a);
+		System.out.println(Arrays.toString(a));
 		assertTrue(Arrays.equals(expected, a));
 	}
 
