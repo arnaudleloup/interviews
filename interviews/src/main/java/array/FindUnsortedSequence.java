@@ -10,76 +10,69 @@ package array;
  */
 public class FindUnsortedSequence {
 
-	public static int[] f(int[] t) {
-		int m = findM(t);
-		int n = findN(t);
+	public static int[] f(int[] a) {
+		int m = findM(a);
 
-		int[] ret = {m, n};
-		return ret;
+		if (m == a.length) {
+			return new int[] {-1, -1};
+		}
+
+		int n = findN(a);
+		return new int[] {m, n};
 	}
 
-	/**
-	 * O(n) / O(1)
-	 * ~ 2n / ~ 1
-	 */
-	private static int findM(int[] t) {
-		int i = 1;
-		int previous = t[0];
-		while (i < t.length && t[i] >= previous) {
-			previous = t[i];
-			i++;
-		}
-
-		if (i == t.length) {
-			return -1;
-		}
-
+	private static int findM(int[] a) {
+		int n = a.length;
+		int m = 0;
+		boolean ascending = true;
 		int min = Integer.MAX_VALUE;
-		while (i < t.length) {
-			if (t[i] < min) {
-				min = t[i];
+		for (int i = 1; i < n; i++) {
+			if (ascending && a[i] >= a[i - 1]) {
+				m = i;
+			} else {
+				ascending = false;
+				if (a[i] < min) {
+					min = a[i];
+				}
 			}
-			i++;
 		}
 
-		i = 0;
-		while (t[i] <= min) {
-			i++;
-		}
+		while (a[m] > min) {
+			m--;
 
-		return i;
+			if (m < 0) {
+				break;
+			}
+		}
+		m++;
+
+		return m;
 	}
 
-	/**
-	 * O(n) / O(1)
-	 * ~ 2n / ~ 1
-	 */
-	private static int findN(int[] t) {
-		int j = t.length - 2;
-		int previous = t[t.length - 1];
-		while (j >= 0 && t[j] <= previous) {
-			previous = t[j];
-			j--;
-		}
-
-		if (j == -1) {
-			return -1;
-		}
-
-		int max = -Integer.MAX_VALUE;
-		while (j >= 0) {
-			if (t[j] > max) {
-				max = t[j];
+	private static int findN(int[] a) {
+		int n = a.length;
+		int hi = n - 1;
+		boolean descending = true;
+		int max = Integer.MIN_VALUE;
+		for (int i = n - 2; i >= 0; i--) {
+			if (descending && a[i] <= a[i + 1]) {
+				hi = i;
+			} else {
+				descending = false;
+				if (a[i] > max) {
+					max = a[i];
+				}
 			}
-
-			j--;
 		}
 
-		j = t.length - 1;
-		while (t[j] >= max) {
-			j--;
-		}
+		while (a[hi] < max) {
+			hi++;
 
-		return j;
+			if (hi >= n) {
+				break;
+			}
+		}
+		hi--;
+		return hi;
 	}
 }
