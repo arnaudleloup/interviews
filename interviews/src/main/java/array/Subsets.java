@@ -10,21 +10,19 @@ public class Subsets {
 
 	public static <E> List<List<E>> f(List<E> list) {
 		List<List<E>> subsets = new ArrayList<>();
-		dfs(list, subsets);
+		dfs(list, 0, new ArrayList<E>(), subsets);
 		return subsets;
 	}
 
-	private static <E> void dfs(List<E> list, List<List<E>> subsets) {
-		if (subsets.contains(list)) {
+	private static <E> void dfs(List<E> list, int i, List<E> subset, List<List<E>> subsets) {
+		if (i == list.size()) {
+			subsets.add(new ArrayList<>(subset));
 			return;
 		}
 
-		subsets.add(list);
-
-		for (int i = 0; i < list.size(); i++) {
-			List<E> subset = new ArrayList<>(list);
-			subset.remove(i);
-			dfs(subset, subsets);
-		}
+		dfs(list, i + 1, subset, subsets);
+		subset.add(list.get(i));
+		dfs(list, i + 1, subset, subsets);
+		subset.remove(list.get(i));
 	}
 }
