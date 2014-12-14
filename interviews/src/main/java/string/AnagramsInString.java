@@ -10,83 +10,8 @@ import java.util.Map;
  */
 public class AnagramsInString {
 
-	/**
-	 * Time complexity: O(n + m)
-	 * Space complexity: O(m)
-	 */
-	public static boolean f(String s, String sub) {
-		int n = s.length();
-		int m = sub.length();
-
-		Map<Character, Integer> fr = new HashMap<>();
-		for (char c : sub.toCharArray()) {
-			if (!fr.containsKey(c)) {
-				fr.put(c, 0);
-			}
-
-			fr.put(c, fr.get(c) + 1);
-		}
-
-		int i = 0;
-		while(i < n - m) {
-			char c = s.charAt(i);
-			if (!fr.containsKey(c)) {
-				i++;
-				continue;
-			}
-
-			int j = i;
-			Map<Character, Integer> temp = new HashMap<>(fr);
-			while (j < i + m) {
-				char d = s.charAt(j);
-				if (!temp.containsKey(d)) {
-					i = j + 1;
-					break;
-				}
-
-				if (temp.get(d) == 1) {
-					temp.remove(d);
-				} else {
-					temp.put(d, temp.get(d) - 1);
-				}
-
-				j++;
-			}
-
-			if (j == i + m) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Rabin-Karpe implementation.
-	 * Time complexity: O(n + m)
-	 * Space complexity: O(1)
-	 */
-	public static boolean f2(String s, String sub) {
-		int n = s.length();
-		int m = sub.length();
-		int v = initHash(sub, m);
-		int h = initHash(s, m);
-		if (h == v) {
-			return true;
-		}
-
-		for (int i = m; i < n; i++) {
-			h = removeHash(h, s.charAt(i - m));
-			h = addHash(h, s.charAt(i));
-			if (h == v) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	private static Map<Character, Integer> hash = new HashMap<>();
+
 	static {
 		hash.put('a', 2);
 		hash.put('b', 3);
@@ -98,21 +23,38 @@ public class AnagramsInString {
 		hash.put('h', 19);
 	}
 
-	private static int initHash(String s, int n) {
-		int h = 1;
+	/**
+	 * Rabin Karp implementation
+	 * 
+	 * Time complexity: O(n + m)
+	 * Space complexity: O(1)
+	 */
+	public static int f(String s, String pat) {
+		int n = s.length();
+		int m = pat.length();
 
-		for (int i = 0; i < n; i++) {
-			h *= hash.get(s.charAt(i));
+		int patHash = 1;
+		for (int i = 0; i < m; i++) {
+			patHash *= hash.get(pat.charAt(i));
 		}
 
-		return h;
-	}
+		int sHash = 1;
+		for (int i = 0; i < m; i++) {
+			sHash *= hash.get(s.charAt(i));
+		}
 
-	private static int removeHash(int h, char c) {
-		return h / hash.get(c);
-	}
+		if (sHash == patHash) {
+			return 0;
+		}
 
-	private static int addHash(int h, char c) {
-		return h * hash.get(c);
+		for (int i = m; i < n; i++) {
+			sHash /= hash.get(s.charAt(i - m));
+			sHash *= hash.get(s.charAt(i));
+			if (sHash == patHash) {
+				return i - m + 1;
+			}
+		}
+
+		return n;
 	}
 }
