@@ -32,6 +32,7 @@ public class LinkedListPartitionTest {
 
 		Node<Integer> first = LinkedListPartition.partition(node, x);
 
+		System.out.println(first);
 		assertTrue(first.item < x);
 		assertTrue(first.next.item < x);
 		assertTrue(first.next.next.item < x);

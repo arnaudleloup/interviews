@@ -5,28 +5,33 @@ package array;
  */
 public class Rotation {
 
-	public static void rotate(int[] a, int d) {
-		rotate(a, d, 0, a.length - 1);
+	/**
+	 * Time complexity: O(n)
+	 * Space complexity: O(1)
+	 */
+	public static void rotate2(int[] a, int d) {
+		int n = a.length;
+		d = ((d % n) + n) % n;
+		flip(a, 0, n - 1);
+		flip(a, 0, d - 1);
+		flip(a, d, n - 1);
 	}
 
-	public static void rotate2(int[] a, int d) {
-		if (d == 0) {
-			return;
+	public static void flip(int[] a, int lo, int hi) {
+		int i = lo;
+		int j = hi;
+
+		while (i < j) {
+			int temp = a[i];
+			a[i] = a[j];
+			a[j] = temp;
+			i++;
+			j--;
 		}
+	}
 
-		int n = a.length;
-
-		if (d > n || d < n) {
-			d = d % n;
-		}
-
-		if (d < 0) {
-			d = n + d;
-		}
-
-		reverse(a, 0, n - 1);
-		reverse(a, 0, d - 1);
-		reverse(a, d, n - 1);
+	public static void rotate(int[] a, int d) {
+		rotate(a, d, 0, a.length - 1);
 	}
 
 	/**
@@ -72,11 +77,5 @@ public class Rotation {
 		int temp = a[i];
 		a[i] = a[k];
 		a[k] = temp;
-	}
-
-	private static void reverse(int[] a, int lo, int hi) {
-		while (lo < hi) {
-			swap(a, lo++, hi--);
-		}
 	}
 }
