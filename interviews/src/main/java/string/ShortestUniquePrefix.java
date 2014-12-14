@@ -11,70 +11,75 @@ import java.util.Set;
  */
 public class ShortestUniquePrefix {
 
+	private static final int R = 256; // extended ASCII
+
 	/**
-	 * Trie implementation.
-	 * 
 	 * n = number of Strings
-	 * L = String length
+	 * L = average string length
+	 * R = alphabet radix (extended ASCII)
 	 * 
 	 * Time complexity: O(n * L)
-	 * Space complexity: O(n * L)
+	 * Space complexity: O(n * L * R)
 	 */
 	public static Set<String> f(String[] strings) {
 		Node root = new Node();
-		Set<String> added = new HashSet<>();
 		for (String s : strings) {
-			if (!added.contains(s)) {
-				root = put(root, s, 0);
-				added.add(s);
-			}
+			root = add(root, s, 0);
 		}
 
-		Set<String> prefix = new HashSet<>();
-		collect(root, new StringBuilder(), prefix);
-		return prefix;
+		Set<String> prefixs = new HashSet<>();
+		collect(root, new StringBuilder(), prefixs);
+		return prefixs;
 	}
 
-	private static void collect(Node x, StringBuilder sb, Set<String> prefix) {
-		if (x.n == 1) { // Shortest prefix found
-			prefix.add(sb.toString());
-			return;
-		}
-
-		if (x.value) { // Shortest prefix to this String is itself
-			prefix.add(sb.toString());
-		}
-
-		for (char c = 0; c < R; c++) {
-			if (x.next[c] != null) {
-				sb.append(c);
-				collect(x.next[c], sb, prefix);
-				sb.deleteCharAt(sb.length() - 1);
-			}
-		}
-	}
-
-	private static Node put(Node x, String s, int d) {
+	private static Node add(Node x, String s, int d) {
 		if (x == null) {
 			x = new Node();
 		}
 
-		x.n++;
-
 		if (d == s.length()) {
-			x.value = true;
+			if (!x.value) {
+				x.value = true;
+				x.size++;
+			}
+
 			return x;
 		}
 
 		char c = s.charAt(d);
-		x.next[c] = put(x.next[c], s, d + 1);
+		if (x.next[c] != null) {
+			x.size -= x.next[c].size;
+		}
+		x.next[c] = add(x.next[c], s, d + 1);
+		x.size += x.next[c].size;
+
 		return x;
 	}
 
-	private static int R = 256; // ASCII
+	private static void collect(Node x, StringBuilder sb, Set<String> prefixs) {
+		if (x == null) {
+			return;
+		}
+
+		if (x.value) {
+			prefixs.add(sb.toString());
+		}
+
+		if (x.size == 1) {
+			prefixs.add(sb.toString());
+			return;
+		}
+
+		for (char c = 0; c < R; c++) {
+			sb.append(c);
+			collect(x.next[c], sb, prefixs);
+			sb.deleteCharAt(sb.length() - 1);
+		}
+	}
+
 	private static class Node {
-		int n; // number of children characters
-		boolean value; // true if the node corresponds to an added String
 		Node[] next = new Node[R];
+		boolean value = false;
+		int size = 0;
 	}
 }
