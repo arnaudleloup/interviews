@@ -1,19 +1,16 @@
 package number;
 
+/**
+ * Returns the GCD of two numbers.
+ */
 public class GCD {
 
-	public final static int getGcd(int a, int b) {
-		int n = a;
+	public static int f(int a, int b) {
 		int d = b;
-		int m = -1;
-
-		while (m != 0) {
-			m = n % d;
-			n = d;
-
-			if (m != 0) {
-				d = m;
-			}
+		while (a % b != 0) {
+			d = a % b;
+			a = b;
+			b = d;
 		}
 
 		return d;

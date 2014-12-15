@@ -2,36 +2,16 @@ package number;
 
 import static org.junit.Assert.assertEquals;
 
-import number.GCD;
-
 import org.junit.Test;
 
 public class GCDTest {
 
 	@Test
 	public void test() {
-		int a = 31488;
-		int b = 123;
-		int expected = 123;
-
-		double d = Math.pow(2, 64);
-		double q = Math.pow(10, 12);
-
-		System.out.println(d);
-		System.out.println(q);
-		assertEquals(expected, GCD.getGcd(a, b));
+		assertEquals(3, GCD.f(123, 18));
+		assertEquals(123, GCD.f(123, 123));
+		assertEquals(15, GCD.f(15, 90));
+		assertEquals(1, GCD.f(17, 997));
+		assertEquals(123, GCD.f(31488, 123));
 	}
-
-	@Test
-	public void toto() {
-		String a = "a";
-		String b = a.substring(a.length(), a.length());
-
-		System.out.println(a);
-		System.out.println(b);
-		System.out.println(b.length());
-
-	}
-
-
 }
