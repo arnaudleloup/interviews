@@ -33,8 +33,9 @@ public class WordToWord {
 		parent.put(start, null);
 		Set<String> frontier = new HashSet<>();
 		frontier.add(start);
+		boolean endReached = false;
 
-		while (!frontier.isEmpty()) {
+		while (!frontier.isEmpty() && !endReached) {
 			Set<String> next = new HashSet<>();
 
 			for (String s : frontier) {
@@ -45,8 +46,13 @@ public class WordToWord {
 					}
 
 					if (t.equals(end)) {
+						endReached = true;
 						break;
 					}
+				}
+
+				if (endReached) {
+					break;
 				}
 			}
 
