@@ -57,11 +57,11 @@ public class Trie {
 	public Set<String> keysWithPrefix(String pre) {
 		Node x = get(root, pre, 0);
 		Set<String> strings = new HashSet<>();
-		collect(x, pre, new StringBuilder(pre), strings);
+		collect(x, new StringBuilder(pre), strings);
 		return strings;
 	}
 
-	private void collect(Node x, String pre, StringBuilder sb, Set<String> strings) {
+	private void collect(Node x, StringBuilder sb, Set<String> strings) {
 		if (x == null) {
 			return;
 		}
@@ -72,7 +72,7 @@ public class Trie {
 
 		for (char c = 0; c < R; c++) {
 			sb.append(c);
-			collect(x.next[c], pre, sb, strings);
+			collect(x.next[c], sb, strings);
 			sb.deleteCharAt(sb.length() - 1);
 		}
 	}
