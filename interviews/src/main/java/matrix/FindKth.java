@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import lib.Pair;
-
 /**
  * Given a n*n Matrix.
  * All rows are sorted, and all columns are sorted.
@@ -20,52 +18,55 @@ public class FindKth {
 	 */
 	public static int f(int[][] matrix, int k) {
 		int n = matrix.length;
+		PriorityQueue<Element> pq = new PriorityQueue<>(k + 1, Element.comparator());
+		pq.add(new Element(0, 0, matrix[0][0]));
+		Set<Element> seen = new HashSet<>();
+		seen.add(new Element(0, 0, matrix[0][0]));
+		int value = -1;
 
-		PriorityQueue<Value> heap = new PriorityQueue<>(8, Value.comparator());
-		heap.add(new Value(0, 0, matrix[0][0]));
-		Set<Pair<Integer, Integer>> done = new HashSet<>();
-		done.add(new Pair<Integer, Integer>(0, 0));
-		int count = 0;
-
-		while (count < k) {
-			Value value = heap.poll();
-			int i = value.i;
-			int j = value.j;
-			if (i < n - 1 && !done.contains(new Pair<Integer, Integer>(i + 1, j))) {
-				heap.add(new Value(i + 1, j, matrix[i + 1][j]));
-				done.add(new Pair<Integer, Integer>(i + 1, j));
+		while (k >= 0) {
+			Element e = pq.poll();
+			value = e.val;
+			if (e.i + 1 < n) {
+				Element e1 = new Element(e.i + 1, e.j, matrix[e.i + 1][e.j]);
+				if (!seen.contains(e1)) {
+					pq.add(e1);
+					seen.add(e1);
+				}
 			}
 
-			if (j < n - 1 && !done.contains(new Pair<Integer, Integer>(i, j + 1))) {
-				heap.add(new Value(i, j + 1, matrix[i][j + 1]));
-				done.add(new Pair<Integer, Integer>(i, j + 1));
+			if (e.j + 1 < n) {
+				Element e2 = new Element(e.i, e.j + 1, matrix[e.i][e.j + 1]);
+				if (!seen.contains(e2)) {
+					pq.add(e2);
+					seen.add(e2);
+				}
 			}
-
-			count++;
+			k--;
 		}
 
-		return heap.peek().v;
+		return value;
 	}
 
-	private static class Value {
+	private static class Element {
 		int i;
 		int j;
-		int v;
+		int val;
 
-		public Value(int i, int j, int v) {
+		public Element(int i, int j, int val) {
 			this.i = i;
 			this.j = j;
-			this.v = v;
+			this.val = val;
 		}
 
-		public static Comparator<Value> comparator() {
-			return new Comparator<Value>() {
+		private static Comparator<Element> comparator() {
+			return new Comparator<Element>() {
 
 				@Override
-				public int compare(Value o1, Value o2) {
-					if (o1.v < o2.v) {
+				public int compare(Element e1, Element e2) {
+					if (e1.val < e2.val) {
 						return -1;
-					} else if (o1.v == o2.v) {
+					} else if (e1.val == e2.val) {
 						return 0;
 					} else {
 						return 1;
@@ -80,7 +81,7 @@ public class FindKth {
 			int result = 1;
 			result = prime * result + i;
 			result = prime * result + j;
-			result = prime * result + v;
+			result = prime * result + val;
 			return result;
 		}
 
@@ -95,14 +96,14 @@ public class FindKth {
 			if (getClass() != obj.getClass()) {
 				return false;
 			}
-			Value other = (Value) obj;
+			Element other = (Element) obj;
 			if (i != other.i) {
 				return false;
 			}
 			if (j != other.j) {
 				return false;
 			}
-			if (v != other.v) {
+			if (val != other.val) {
 				return false;
 			}
 			return true;
