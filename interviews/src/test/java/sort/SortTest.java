@@ -22,28 +22,6 @@ public class SortTest {
 	}
 
 	@Test
-	public void testLexicographicallyMergeSort() {
-		int[] table = getUnsortedArray(100);
-		//		int[] table = {3, 1, 2};
-		for (int i : table) {
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		int[] merged = LexicographicallyMergeSort.sort(table);
-		for (int i : merged) {
-			System.out.print(i + " ");
-		}
-		for (int i = 0; i < merged.length; i++) {
-			if (i != merged.length - 1) {
-				String s1 = String.valueOf(merged[i]);
-				String s2 = String.valueOf(merged[i + 1]);
-
-				assertTrue(s1.compareTo(s2) <= 0);
-			}
-		}
-	}
-
-	@Test
 	public void testCountingSort() {
 		int[] table = getUnsortedArray(1000);
 
@@ -52,26 +30,6 @@ public class SortTest {
 		}
 		System.out.println();
 		int[] sorted = CountingSort.countingSort(table);
-		for (int i : sorted) {
-			System.out.print(i + " ");
-		}
-
-		for (int i = 0; i < sorted.length; i++) {
-			if (i != sorted.length - 1) {
-				assertTrue(sorted[i] <= sorted[i + 1]);
-			}
-		}
-	}
-
-	@Test
-	public void testRadixSort() {
-		int[] table = getUnsortedArray(10);
-
-		for (int i : table) {
-			System.out.print(i + " ");
-		}
-		System.out.println();
-		int[] sorted = RadixSort.radixSort(table);
 		for (int i : sorted) {
 			System.out.print(i + " ");
 		}
